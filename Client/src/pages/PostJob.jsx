@@ -1,8 +1,11 @@
 import Navbar from "../components/Navbar";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function PostJob() {
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -28,11 +31,14 @@ function PostJob() {
     try {
 
       await axios.post(
-        "http://localhost:5000/api/jobs",
+        `${import.meta.env.VITE_API_URL}/jobs`,
         formData
       );
 
       alert("Job Posted Successfully");
+      navigate("/");
+      window.location.reload();
+
 
       setFormData({
         title: "",
